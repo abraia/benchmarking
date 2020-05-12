@@ -1,4 +1,4 @@
-#Image optimization plugins for WordPress benchmark - Dataset
+# Image optimization plugins for WordPress benchmark - Dataset
 
 This dataset has been used to benchmark four image optimization plugins for Wordpress. The evaluation revised several objective indicators, from optimization efficiency and quality preservation, to processing speed, impact on server storage, format coverage, and price.
 
