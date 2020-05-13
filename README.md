@@ -1,32 +1,24 @@
-# Image compression settings assessment, reference dataset
+# Image optimization plugins for WordPress benchmark - Dataset
 
-The reference image dataset is derived from 131 images with a CC0 license, collected in Pexels and Unsplash. 
+This dataset has been used to benchmark four image optimization plugins for Wordpress. The evaluation revised several objective indicators, from optimization efficiency and quality preservation, to processing speed, impact on server storage, format coverage, and price.
 
-The images were selected and some of them edited to fit in a general fashion ecommerce site and to feature one or more of the following content:
+![](compression-artifacts-on-text.png)
 
-- Human models and their faces
-- Colorful textures
-- Editing, like overlaying text or duotone effect
+## Main results on optimization efficiency
 
-![Example of image](Image101.jpg "Example of image")
+We tested the plugins on a dataset with three image widths: 375px, 750px, and 1125px, which are representative of the [most important image sizes for mobile web](https://abraia.me/docs/best-image-sizes-for-web/), taking into acount both iPhone and Android screen sizes. The original images were 17 JPEG images at each of the three resolutions, compressed with a 95 quality factor, and no chroma subsampling.
 
-To analyse the impact of image resolution, high quality derivatives were created with maximum dimensions of 375, 750, 1125, 1280, 1440, and 1920 px.
+The next table summarizes the weight savings achieved by each plugin after problematic settings were discarded.
 
-This was done using ImageMagick, e.g.
+![](wp-plugin-image-weight-savings.png)   
 
-`magick mogrify -resize 750x750 -sampling-factor 4:4:4 -quality 100 -strip 750/*.jpg`
+Overall, the inspection of the images compressed with the four plugins reveals that: 
 
-This resizes all the images with a .jpg extension in the folder '750', using the highest possible quality settings.
+1. **Abraia** consistently produces images with good visual quality at every resolution. It manages to protect color, even at low image resolutions. At the same time it yields in general more weight savings compared to Tinypng and Shortpixel, specially in small images, and higher savings than Imagify in medium and large images.
+2. **Tinypng**. It shows good visual quality consistently and at every resolution, managing to protect color effectively. It's way too conservative with small images, yielding very small weight savings at low resolutions. This is not that problematic since small images are usually light.
+2. **Imagify** (Aggressive). It's too aggressive with small resolutions, introducing visible artifacts and color degradation. Likewise, it yields lower compression rates at higher resolutions where savings would have a higher impact.
+3. **Shortpixel** (Glossy) is not as aggressive as Imagify. But like Imagify it has issues with vivid colors, failing to control chroma subsampling properly.
 
-Besides, results are offered using different compression settings in ImageMagick and with Abraia [image compressor](https://abraia.me/compressor/) that adapts compression settings to the image content.
+You may read the revision further in the complete post in Medium:
 
-Specifically 3 different settings were used with ImageMagick with a chroma subsampling of 4:2:0 and a quality factor of 70, 80, and 90
-
-
-`magick mogrify -sampling-factor 4:2:0 -quality 70 -strip 750/*.jpg`
-
-`magick mogrify -sampling-factor 4:2:0 -quality 80 -strip 750/*.jpg`
-
-`magick mogrify -sampling-factor 4:2:0 -quality 90 -strip 750/*.jpg`
-
-[Abraia](https://abraia.me) compressor has been used in auto mode, tuning both chroma subsampling and quality factor according to the content of the image, in order to minimise weight while avoiding visible artifacts at the same time.
+[Best image optimization plugins for WordPress benchmarked](https://medium.com/abraia/best-image-optimization-plugins-for-wordpress-benchmarked-20508f9a0a57)
